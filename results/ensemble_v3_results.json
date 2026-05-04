@@ -1,0 +1,25 @@
+{
+  "ensemble_v3": {
+    "accuracy": 0.7786,
+    "macro_f1": 0.7776,
+    "mcc": 0.6682,
+    "kappa": 0.6679,
+    "roc_auc_macro": 0.9206,
+    "per_class": {
+      "olumsuz": 0.7941,
+      "notr": 0.682,
+      "olumlu": 0.8566
+    },
+    "models": [
+      "berturk_v3",
+      "xlm_roberta_v2",
+      "savasy_finetuned"
+    ],
+    "weights": {
+      "berturk_v3": 0.3377,
+      "xlm_roberta_v2": 0.3297,
+      "savasy_finetuned": 0.3326
+    },
+    "test_set": "data\\processed_v4\\test.csv"
+  }
+}

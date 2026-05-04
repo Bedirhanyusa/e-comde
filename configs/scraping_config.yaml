@@ -1,0 +1,11 @@
+scraping:
+  delay_min: 2.0
+  delay_max: 5.0
+  max_retries: 3
+  headless: true
+
+trendyol:
+  base_url: https://www.trendyol.com
+  review_selector: ".comment-text"
+  pagination_selector: ".pagination-next"
+  max_pages: 10

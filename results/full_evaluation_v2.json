@@ -1,0 +1,568 @@
+{
+  "tfidf_lr": {
+    "accuracy": 0.7023,
+    "macro_f1": 0.6996,
+    "mcc": 0.554,
+    "kappa": 0.5535,
+    "roc_auc_macro": 0.8594
+  },
+  "bilstm": {
+    "accuracy": 0.698,
+    "macro_f1": 0.6943,
+    "mcc": 0.5477,
+    "kappa": 0.547,
+    "roc_auc_macro": 0.8586
+  },
+  "berturk_finetuned": {
+    "accuracy": 0.754,
+    "macro_f1": 0.7538,
+    "mcc": 0.6322,
+    "kappa": 0.631,
+    "per_class": {
+      "olumsuz": {
+        "precision": 0.7882,
+        "recall": 0.692,
+        "f1": 0.737,
+        "support": 1000
+      },
+      "notr": {
+        "precision": 0.6342,
+        "recall": 0.678,
+        "f1": 0.6554,
+        "support": 1000
+      },
+      "olumlu": {
+        "precision": 0.8471,
+        "recall": 0.892,
+        "f1": 0.869,
+        "support": 1000
+      }
+    },
+    "confusion_matrix": [
+      [
+        692,
+        287,
+        21
+      ],
+      [
+        182,
+        678,
+        140
+      ],
+      [
+        4,
+        104,
+        892
+      ]
+    ],
+    "roc_auc_macro": 0.8974,
+    "roc_auc_per_class": {
+      "olumsuz": 0.9074,
+      "notr": 0.8234,
+      "olumlu": 0.9615
+    },
+    "history": [
+      {
+        "epoch": 1,
+        "loss": 0.8670348140696684,
+        "val_acc": 0.731,
+        "val_f1": 0.7208565035389286
+      },
+      {
+        "epoch": 2,
+        "loss": 0.6861204572121302,
+        "val_acc": 0.7433333333333333,
+        "val_f1": 0.7410406425000023
+      },
+      {
+        "epoch": 3,
+        "loss": 0.6446494407057762,
+        "val_acc": 0.7473333333333333,
+        "val_f1": 0.7465435742866768
+      },
+      {
+        "epoch": 4,
+        "loss": 0.6083198847373327,
+        "val_acc": 0.7456666666666667,
+        "val_f1": 0.7424865943384461
+      },
+      {
+        "epoch": 5,
+        "loss": 0.5792891268730164,
+        "val_acc": 0.7423333333333333,
+        "val_f1": 0.7391470483544923
+      },
+      {
+        "epoch": 6,
+        "loss": 0.5616249658167363,
+        "val_acc": 0.7446666666666667,
+        "val_f1": 0.7423314927589507
+      }
+    ],
+    "config": {
+      "lr": 1e-05,
+      "epochs_run": 6,
+      "effective_batch": 32,
+      "label_smoothing": 0.1,
+      "class_weights": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "best_val_f1": 0.7465
+  },
+  "berturk_zeroshot": {
+    "accuracy": 0.373,
+    "macro_f1": 0.3045,
+    "mcc": 0.0684,
+    "kappa": 0.0595,
+    "per_class": {
+      "olumsuz": {
+        "precision": 0.3685,
+        "recall": 0.626,
+        "f1": 0.4639,
+        "support": 1000
+      },
+      "notr": {
+        "precision": 0.2553,
+        "recall": 0.012,
+        "f1": 0.0229,
+        "support": 1000
+      },
+      "olumlu": {
+        "precision": 0.3836,
+        "recall": 0.481,
+        "f1": 0.4268,
+        "support": 1000
+      }
+    },
+    "confusion_matrix": [
+      [
+        626,
+        6,
+        368
+      ],
+      [
+        583,
+        12,
+        405
+      ],
+      [
+        490,
+        29,
+        481
+      ]
+    ],
+    "roc_auc_macro": 0.5245,
+    "roc_auc_per_class": {
+      "olumsuz": 0.5658,
+      "notr": 0.442,
+      "olumlu": 0.5657
+    }
+  },
+  "xlm_roberta": {
+    "accuracy": 0.7453,
+    "macro_f1": 0.7426,
+    "mcc": 0.6185,
+    "kappa": 0.618,
+    "per_class": {
+      "olumsuz": {
+        "precision": 0.751,
+        "recall": 0.742,
+        "f1": 0.7465,
+        "support": 1000
+      },
+      "notr": {
+        "precision": 0.6442,
+        "recall": 0.603,
+        "f1": 0.6229,
+        "support": 1000
+      },
+      "olumlu": {
+        "precision": 0.8281,
+        "recall": 0.891,
+        "f1": 0.8584,
+        "support": 1000
+      }
+    },
+    "confusion_matrix": [
+      [
+        742,
+        231,
+        27
+      ],
+      [
+        239,
+        603,
+        158
+      ],
+      [
+        7,
+        102,
+        891
+      ]
+    ],
+    "roc_auc_macro": 0.888,
+    "roc_auc_per_class": {
+      "olumsuz": 0.9021,
+      "notr": 0.8065,
+      "olumlu": 0.9554
+    },
+    "history": [
+      {
+        "epoch": 1,
+        "loss": 0.8763303475876649,
+        "val_acc": 0.714,
+        "val_f1": 0.7111258991962246
+      },
+      {
+        "epoch": 2,
+        "loss": 0.7251240484913191,
+        "val_acc": 0.7296666666666667,
+        "val_f1": 0.7294141175114248
+      },
+      {
+        "epoch": 3,
+        "loss": 0.6862777854601542,
+        "val_acc": 0.7366666666666667,
+        "val_f1": 0.724091108673648
+      },
+      {
+        "epoch": 4,
+        "loss": 0.6619326289594173,
+        "val_acc": 0.742,
+        "val_f1": 0.7339787361368019
+      },
+      {
+        "epoch": 5,
+        "loss": 0.6396681787967682,
+        "val_acc": 0.746,
+        "val_f1": 0.7424057762403627
+      },
+      {
+        "epoch": 6,
+        "loss": 0.6257935512562592,
+        "val_acc": 0.7436666666666667,
+        "val_f1": 0.7401967589808155
+      }
+    ]
+  },
+  "ensemble_avg": {
+    "accuracy": 0.758,
+    "macro_f1": 0.7563,
+    "mcc": 0.6375,
+    "kappa": 0.637,
+    "per_class": {
+      "olumsuz": {
+        "precision": 0.7759,
+        "recall": 0.727,
+        "f1": 0.7506,
+        "support": 1000
+      },
+      "notr": {
+        "precision": 0.6549,
+        "recall": 0.647,
+        "f1": 0.6509,
+        "support": 1000
+      },
+      "olumlu": {
+        "precision": 0.8372,
+        "recall": 0.9,
+        "f1": 0.8675,
+        "support": 1000
+      }
+    },
+    "confusion_matrix": [
+      [
+        727,
+        248,
+        25
+      ],
+      [
+        203,
+        647,
+        150
+      ],
+      [
+        7,
+        93,
+        900
+      ]
+    ],
+    "roc_auc_macro": 0.8979,
+    "roc_auc_per_class": {
+      "olumsuz": 0.9091,
+      "notr": 0.8227,
+      "olumlu": 0.9621
+    }
+  },
+  "berturk_v3": {
+    "accuracy": 0.7822,
+    "macro_f1": 0.7813,
+    "mcc": 0.6735,
+    "kappa": 0.6734,
+    "roc_auc_macro": 0.9217,
+    "per_class": {
+      "olumsuz": 0.8005,
+      "notr": 0.6877,
+      "olumlu": 0.8556
+    },
+    "best_val_f1": 0.782,
+    "history": [
+      {
+        "epoch": 1,
+        "loss": 0.5882,
+        "val_acc": 0.7784,
+        "val_f1": 0.7796
+      },
+      {
+        "epoch": 2,
+        "loss": 0.5531,
+        "val_acc": 0.7837,
+        "val_f1": 0.782
+      },
+      {
+        "epoch": 3,
+        "loss": 0.5083,
+        "val_acc": 0.7812,
+        "val_f1": 0.7797
+      },
+      {
+        "epoch": 4,
+        "loss": 0.4631,
+        "val_acc": 0.778,
+        "val_f1": 0.7771
+      },
+      {
+        "epoch": 5,
+        "loss": 0.4209,
+        "val_acc": 0.7718,
+        "val_f1": 0.7704
+      },
+      {
+        "epoch": 6,
+        "loss": 0.3817,
+        "val_acc": 0.7742,
+        "val_f1": 0.7734
+      },
+      {
+        "epoch": 7,
+        "loss": 0.3519,
+        "val_acc": 0.768,
+        "val_f1": 0.7679
+      }
+    ],
+    "config": {
+      "base_ckpt": "models\\berturk_finetuned",
+      "lr": 8e-06,
+      "epochs": 10,
+      "max_len": 192,
+      "label_smooth": 0.03,
+      "data_version": "v4"
+    }
+  },
+  "xlm_roberta_v2": {
+    "accuracy": 0.7664,
+    "macro_f1": 0.7643,
+    "mcc": 0.65,
+    "kappa": 0.6495,
+    "roc_auc_macro": 0.9116,
+    "per_class": {
+      "olumsuz": 0.778,
+      "notr": 0.664,
+      "olumlu": 0.8509
+    },
+    "best_val_f1": 0.7634,
+    "history": [
+      {
+        "epoch": 1,
+        "loss": 0.8351,
+        "val_acc": 0.7337,
+        "val_f1": 0.7329
+      },
+      {
+        "epoch": 2,
+        "loss": 0.6393,
+        "val_acc": 0.7543,
+        "val_f1": 0.7463
+      },
+      {
+        "epoch": 3,
+        "loss": 0.6011,
+        "val_acc": 0.7615,
+        "val_f1": 0.7551
+      },
+      {
+        "epoch": 4,
+        "loss": 0.5723,
+        "val_acc": 0.7617,
+        "val_f1": 0.7626
+      },
+      {
+        "epoch": 5,
+        "loss": 0.549,
+        "val_acc": 0.7651,
+        "val_f1": 0.7604
+      },
+      {
+        "epoch": 6,
+        "loss": 0.5344,
+        "val_acc": 0.7653,
+        "val_f1": 0.7634
+      },
+      {
+        "epoch": 7,
+        "loss": 0.5221,
+        "val_acc": 0.7635,
+        "val_f1": 0.7626
+      },
+      {
+        "epoch": 8,
+        "loss": 0.5158,
+        "val_acc": 0.7645,
+        "val_f1": 0.7629
+      }
+    ],
+    "config": {
+      "lr": 6e-06,
+      "epochs": 8,
+      "max_len": 192,
+      "label_smooth": 0.04,
+      "base_model": "xlm-roberta-base"
+    }
+  },
+  "savasy_finetuned": {
+    "accuracy": 0.7704,
+    "macro_f1": 0.7696,
+    "mcc": 0.6559,
+    "kappa": 0.6556,
+    "roc_auc_macro": 0.9141,
+    "per_class": {
+      "olumsuz": 0.7858,
+      "notr": 0.6757,
+      "olumlu": 0.8473
+    },
+    "best_val_f1": 0.7702,
+    "history": [
+      {
+        "epoch": 1,
+        "loss": 0.839,
+        "val_acc": 0.7476,
+        "val_f1": 0.7442
+      },
+      {
+        "epoch": 2,
+        "loss": 0.6046,
+        "val_acc": 0.7641,
+        "val_f1": 0.7617
+      },
+      {
+        "epoch": 3,
+        "loss": 0.5752,
+        "val_acc": 0.7657,
+        "val_f1": 0.762
+      },
+      {
+        "epoch": 4,
+        "loss": 0.5535,
+        "val_acc": 0.7684,
+        "val_f1": 0.7669
+      },
+      {
+        "epoch": 5,
+        "loss": 0.538,
+        "val_acc": 0.771,
+        "val_f1": 0.7692
+      },
+      {
+        "epoch": 6,
+        "loss": 0.5274,
+        "val_acc": 0.7686,
+        "val_f1": 0.7664
+      },
+      {
+        "epoch": 7,
+        "loss": 0.5198,
+        "val_acc": 0.7714,
+        "val_f1": 0.7702
+      },
+      {
+        "epoch": 8,
+        "loss": 0.5185,
+        "val_acc": 0.769,
+        "val_f1": 0.7671
+      }
+    ],
+    "config": {
+      "lr": 3e-06,
+      "epochs": 8,
+      "max_len": 192,
+      "label_smooth": 0.03,
+      "base_model": "savasy/bert-turkish-text-classification"
+    }
+  },
+  "ensemble_v2_avg": {
+    "accuracy": 0.7827,
+    "macro_f1": 0.7804,
+    "mcc": 0.6749,
+    "kappa": 0.674,
+    "roc_auc_macro": 0.9206,
+    "per_class": {
+      "olumsuz": 0.7999,
+      "notr": 0.6823,
+      "olumlu": 0.8589
+    },
+    "weights": {
+      "berturk_v3": 0.5129,
+      "xlm_roberta": 0.4871
+    },
+    "test_set": "data\\processed_v4\\test.csv"
+  },
+  "ensemble_v3": {
+    "accuracy": 0.7786,
+    "macro_f1": 0.7776,
+    "mcc": 0.6682,
+    "kappa": 0.6679,
+    "roc_auc_macro": 0.9206,
+    "per_class": {
+      "olumsuz": 0.7941,
+      "notr": 0.682,
+      "olumlu": 0.8566
+    },
+    "models": [
+      "berturk_v3",
+      "xlm_roberta_v2",
+      "savasy_finetuned"
+    ],
+    "weights": {
+      "berturk_v3": 0.3377,
+      "xlm_roberta_v2": 0.3297,
+      "savasy_finetuned": 0.3326
+    },
+    "test_set": "data\\processed_v4\\test.csv"
+  },
+  "absa": {
+    "macro_f1": 0.9965,
+    "accuracy": 0.997,
+    "aspects": [
+      "kargo",
+      "urun_kalitesi",
+      "fiyat",
+      "musteri_hizmetleri"
+    ]
+  },
+  "rouge": {
+    "rouge1": 0.4139,
+    "rouge2": 0.3951,
+    "rougeL": 0.4139
+  },
+  "summaries": {
+    "olumlu": "Çok güzel 😍👍🏼 3tane aldım Çok güzel ve çok şık bir ürün çok beğendim çok güzel bir çanta kaliteli beğendim tavsiye ederim çok güzel verim sağlayacak bir ürün Ürün gayet gerçekten çok güzel almanizi tavsiye ederim ve bu arada hediye için çok teşekkür ederim kargom çok çabuk geldi çok iyi ve kaliteli bir ürün tavsiye ediyorum Üni için aldım çok rahat",
+    "olumsuz": "Ürün ciddi manada kopacak gibi duruyor.Direnç seviyesi çok düşük,en dirençlisi bile bi çocuğu zorlayacak seviyede değil.Para verip de böyle bir ürün almanın mantığı yok.3 tane böyle ürün satacağınıza bir tane direnci güzel sağlam ürün satın onu kullanalım.Kesinlikle tavsiye etmiyorum ,pişman olursunuz. Ürünü şimdi teslim aldım ama hiç memnun kalmadım daha önce aldım farklı yerden bu şekilde değildi kapağı açtım sapsarı oyuk gonderırken bu ürün kontrol edılmıyor mu 1 yaşındakı bebeğım için aldım ve bu markaya guvendıgım için tercih etmiştim iade etmek istiyorum ürün paslı geldi Çok kötü bu kadar alıcıya ve yıldıza çok şaşırıyorum aldanıp almayın esime aldim Ürün görseldeki gibi gelmedi çok kalitesiz kırık geldi iade yapmadım ama beğenmedim ben tavsiye etmem çok kötü değmez Herkes çok beğenmiş ama benlik bir koku değil, kalıcılığı da yok, bir daha alacağım bir ürün değil",
+    "notr": "Naylonsu çok terletiyor ürün tamamen fiyat performans açıkçası çok kaliteli değil idare eder fiyatina göre iyi ben 36 çift aldım içinde iki tanesinde küçük yırtık çıktı ama sorun etmedDevamını Oku fiyatına uygun güzel bir ürün iyi ki bir beden büyük aldım yıkandıktan sonra biraz çekti Ürün güzel ama küçük geldi gösterilen gibi değil Kararmalarım ve batıklarım için aldım. çok abartildigi gibi bir ürün değil fiyatına göre iyi bir perfonmansi yok.normal jiletlerle eş değer bir ürün bir daha alirmiyim hayırrr"
+  },
+  "method": "extractive_tfidf_mmr",
+  "mt5_example": null,
+  "n_eval_pairs": 90
+}

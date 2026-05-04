@@ -1,0 +1,28 @@
+{
+  "ensemble_tuned": {
+    "accuracy": 0.7768,
+    "macro_f1": 0.7785,
+    "mcc": 0.6678,
+    "kappa": 0.6652,
+    "roc_auc_macro": 0.9209,
+    "per_class": {
+      "olumsuz": 0.7753,
+      "notr": 0.7049,
+      "olumlu": 0.8554
+    },
+    "threshold_notr": 0.38,
+    "models": [
+      "berturk_v3",
+      "xlm_roberta_v2",
+      "savasy_finetuned",
+      "xlm_roberta"
+    ],
+    "weights": {
+      "berturk_v3": 0.2557,
+      "xlm_roberta_v2": 0.2496,
+      "savasy_finetuned": 0.2518,
+      "xlm_roberta": 0.2428
+    },
+    "mode": "threshold_notr=0.38"
+  }
+}

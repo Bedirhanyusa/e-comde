@@ -1,0 +1,21 @@
+{
+  "rouge": {
+    "rouge1": 0.5717,
+    "rouge2": 0.5194,
+    "rougeL": 0.5387
+  },
+  "summaries": {
+    "olumlu": "Bir cok begendim ayni fotografta gorundugu gibiydi kartlar kesinlikle dusmuyor baya salladim ama gercekten kaliteli urun Çok güzel bir kitap, çocuklarım da çok sevdi 😊 Çok kaliteli tavsiye ederim Çok pratik ve kullanışlı.",
+    "olumsuz": "Ürün kutusu ezılmıs halde geldı macun patlamış ve olduğu gıbı çöpe attık Ürün çok berbat yapıştırmıyor bir tane sipariş edecektim iki tane mecburen ettim yoksa göndermiyorlardı paralar çöpe gitti birini açtım iade alırlarmı.. Uzun süre iş yaptırmaz anlık ufak işler için ideal.",
+    "notr": "Çok kalitesi çabuk kopuyor Ürün güzel 38 numara aldım ilk başta tam oldu ama yıkadıkça küçüldü ama yine de giyilir durumda beden olarak daha üst numara alınabilir. Ürün sorunsuz bir şekilde elime ulaştı.İndirimdeyken aldım,fiyat performans ürünü diyebilirmm"
+  },
+  "method": "mt5_small_finetuned_pseudolabel",
+  "n_eval_pairs": 30,
+  "config": {
+    "lr": 0.0001,
+    "epochs": 10,
+    "batch_size": 16,
+    "max_input": 384,
+    "max_target": 128
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "savasy_finetuned": {
+    "accuracy": 0.7704,
+    "macro_f1": 0.7696,
+    "mcc": 0.6559,
+    "kappa": 0.6556,
+    "roc_auc_macro": 0.9141,
+    "per_class": {
+      "olumsuz": 0.7858,
+      "notr": 0.6757,
+      "olumlu": 0.8473
+    },
+    "best_val_f1": 0.7702,
+    "history": [
+      {
+        "epoch": 1,
+        "loss": 0.839,
+        "val_acc": 0.7476,
+        "val_f1": 0.7442
+      },
+      {
+        "epoch": 2,
+        "loss": 0.6046,
+        "val_acc": 0.7641,
+        "val_f1": 0.7617
+      },
+      {
+        "epoch": 3,
+        "loss": 0.5752,
+        "val_acc": 0.7657,
+        "val_f1": 0.762
+      },
+      {
+        "epoch": 4,
+        "loss": 0.5535,
+        "val_acc": 0.7684,
+        "val_f1": 0.7669
+      },
+      {
+        "epoch": 5,
+        "loss": 0.538,
+        "val_acc": 0.771,
+        "val_f1": 0.7692
+      },
+      {
+        "epoch": 6,
+        "loss": 0.5274,
+        "val_acc": 0.7686,
+        "val_f1": 0.7664
+      },
+      {
+        "epoch": 7,
+        "loss": 0.5198,
+        "val_acc": 0.7714,
+        "val_f1": 0.7702
+      },
+      {
+        "epoch": 8,
+        "loss": 0.5185,
+        "val_acc": 0.769,
+        "val_f1": 0.7671
+      }
+    ],
+    "config": {
+      "lr": 3e-06,
+      "epochs": 8,
+      "max_len": 192,
+      "label_smooth": 0.03,
+      "base_model": "savasy/bert-turkish-text-classification"
+    }
+  }
+}

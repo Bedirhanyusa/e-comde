@@ -1,0 +1,37 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+.env
+
+# Model dosyaları (büyük, GitHub'a sığmaz)
+models/berturk_finetuned/
+models/berturk_v3_finetuned/
+models/mt5_summarizer/
+models/savasy_finetuned/
+models/xlm_roberta_finetuned/
+models/xlm_roberta_v2_finetuned/
+models/absa_model/
+models/*.pt
+models/*.pkl
+
+# Veri
+data/raw/
+
+# Frontend
+.next/
+node_modules/
+frontend/.next/
+frontend/node_modules/
+
+# Loglar ve geçici çıktılar
+*.txt
+logs/
+
+# OS
+.DS_Store
+Thumbs.db

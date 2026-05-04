@@ -1,0 +1,24 @@
+{
+  "cross_category": {
+    "Elektronik": {
+      "n": 176,
+      "macro_f1": 0.8071
+    },
+    "Giyim ve Aksesuar": {
+      "n": 791,
+      "macro_f1": 0.7682
+    },
+    "Ev ve Yaşam": {
+      "n": 628,
+      "macro_f1": 0.783
+    },
+    "Kitap ve Hobi": {
+      "n": 140,
+      "macro_f1": 0.7962
+    },
+    "Gıda ve İçecek": {
+      "n": 1111,
+      "macro_f1": 0.7816
+    }
+  }
+}

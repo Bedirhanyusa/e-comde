@@ -1,0 +1,163 @@
+{
+  "tfidf_lr": {
+    "accuracy": 0.7023,
+    "macro_f1": 0.6996,
+    "mcc": 0.554,
+    "kappa": 0.5535,
+    "roc_auc_macro": 0.8594
+  },
+  "bilstm": {
+    "accuracy": 0.698,
+    "macro_f1": 0.6943,
+    "mcc": 0.5477,
+    "kappa": 0.547,
+    "roc_auc_macro": 0.8586
+  },
+  "berturk_finetuned": {
+    "accuracy": 0.754,
+    "macro_f1": 0.7538,
+    "mcc": 0.6322,
+    "kappa": 0.631,
+    "per_class": {
+      "olumsuz": {
+        "precision": 0.7882,
+        "recall": 0.692,
+        "f1": 0.737,
+        "support": 1000
+      },
+      "notr": {
+        "precision": 0.6342,
+        "recall": 0.678,
+        "f1": 0.6554,
+        "support": 1000
+      },
+      "olumlu": {
+        "precision": 0.8471,
+        "recall": 0.892,
+        "f1": 0.869,
+        "support": 1000
+      }
+    },
+    "confusion_matrix": [
+      [
+        692,
+        287,
+        21
+      ],
+      [
+        182,
+        678,
+        140
+      ],
+      [
+        4,
+        104,
+        892
+      ]
+    ],
+    "roc_auc_macro": 0.8974,
+    "roc_auc_per_class": {
+      "olumsuz": 0.9074,
+      "notr": 0.8234,
+      "olumlu": 0.9615
+    }
+  },
+  "xlm_roberta": {
+    "accuracy": 0.7457,
+    "macro_f1": 0.7429,
+    "mcc": 0.619,
+    "kappa": 0.6185,
+    "per_class": {
+      "olumsuz": {
+        "precision": 0.7518,
+        "recall": 0.742,
+        "f1": 0.7469,
+        "support": 1000
+      },
+      "notr": {
+        "precision": 0.6449,
+        "recall": 0.603,
+        "f1": 0.6233,
+        "support": 1000
+      },
+      "olumlu": {
+        "precision": 0.8275,
+        "recall": 0.892,
+        "f1": 0.8585,
+        "support": 1000
+      }
+    },
+    "confusion_matrix": [
+      [
+        742,
+        231,
+        27
+      ],
+      [
+        238,
+        603,
+        159
+      ],
+      [
+        7,
+        101,
+        892
+      ]
+    ],
+    "roc_auc_macro": 0.888,
+    "roc_auc_per_class": {
+      "olumsuz": 0.9021,
+      "notr": 0.8065,
+      "olumlu": 0.9555
+    }
+  },
+  "ensemble_avg": {
+    "accuracy": 0.758,
+    "macro_f1": 0.7563,
+    "mcc": 0.6375,
+    "kappa": 0.637,
+    "per_class": {
+      "olumsuz": {
+        "precision": 0.7759,
+        "recall": 0.727,
+        "f1": 0.7506,
+        "support": 1000
+      },
+      "notr": {
+        "precision": 0.6549,
+        "recall": 0.647,
+        "f1": 0.6509,
+        "support": 1000
+      },
+      "olumlu": {
+        "precision": 0.8372,
+        "recall": 0.9,
+        "f1": 0.8675,
+        "support": 1000
+      }
+    },
+    "confusion_matrix": [
+      [
+        727,
+        248,
+        25
+      ],
+      [
+        203,
+        647,
+        150
+      ],
+      [
+        7,
+        93,
+        900
+      ]
+    ],
+    "roc_auc_macro": 0.8979,
+    "roc_auc_per_class": {
+      "olumsuz": 0.9091,
+      "notr": 0.8227,
+      "olumlu": 0.9621
+    }
+  }
+}

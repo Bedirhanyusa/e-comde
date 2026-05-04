@@ -1,0 +1,67 @@
+{
+  "berturk_v3": {
+    "accuracy": 0.7822,
+    "macro_f1": 0.7813,
+    "mcc": 0.6735,
+    "kappa": 0.6734,
+    "roc_auc_macro": 0.9217,
+    "per_class": {
+      "olumsuz": 0.8005,
+      "notr": 0.6877,
+      "olumlu": 0.8556
+    },
+    "best_val_f1": 0.782,
+    "history": [
+      {
+        "epoch": 1,
+        "loss": 0.5882,
+        "val_acc": 0.7784,
+        "val_f1": 0.7796
+      },
+      {
+        "epoch": 2,
+        "loss": 0.5531,
+        "val_acc": 0.7837,
+        "val_f1": 0.782
+      },
+      {
+        "epoch": 3,
+        "loss": 0.5083,
+        "val_acc": 0.7812,
+        "val_f1": 0.7797
+      },
+      {
+        "epoch": 4,
+        "loss": 0.4631,
+        "val_acc": 0.778,
+        "val_f1": 0.7771
+      },
+      {
+        "epoch": 5,
+        "loss": 0.4209,
+        "val_acc": 0.7718,
+        "val_f1": 0.7704
+      },
+      {
+        "epoch": 6,
+        "loss": 0.3817,
+        "val_acc": 0.7742,
+        "val_f1": 0.7734
+      },
+      {
+        "epoch": 7,
+        "loss": 0.3519,
+        "val_acc": 0.768,
+        "val_f1": 0.7679
+      }
+    ],
+    "config": {
+      "base_ckpt": "models\\berturk_finetuned",
+      "lr": 8e-06,
+      "epochs": 10,
+      "max_len": 192,
+      "label_smooth": 0.03,
+      "data_version": "v4"
+    }
+  }
+}

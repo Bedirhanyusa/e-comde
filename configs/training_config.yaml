@@ -1,0 +1,25 @@
+model:
+  name: dbmdz/bert-base-turkish-cased
+  num_labels: 3
+  max_len: 128
+
+training:
+  learning_rate: 2.0e-5
+  batch_size: 16
+  num_epochs: 3
+  weight_decay: 0.01
+  warmup_ratio: 0.10
+  seed: 42
+
+data:
+  train_path: data/processed/train.csv
+  val_path: data/processed/val.csv
+  test_path: data/processed/test.csv
+  label_map:
+    positive: 0
+    negative: 1
+    neutral: 2
+
+output:
+  checkpoint_dir: models/berturk_finetuned
+  log_dir: logs/

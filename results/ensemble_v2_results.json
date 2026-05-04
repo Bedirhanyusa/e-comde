@@ -1,0 +1,19 @@
+{
+  "ensemble_v2_avg": {
+    "accuracy": 0.7827,
+    "macro_f1": 0.7804,
+    "mcc": 0.6749,
+    "kappa": 0.674,
+    "roc_auc_macro": 0.9206,
+    "per_class": {
+      "olumsuz": 0.7999,
+      "notr": 0.6823,
+      "olumlu": 0.8589
+    },
+    "weights": {
+      "berturk_v3": 0.5129,
+      "xlm_roberta": 0.4871
+    },
+    "test_set": "data\\processed_v4\\test.csv"
+  }
+}

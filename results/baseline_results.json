@@ -1,0 +1,16 @@
+{
+  "tfidf_lr": {
+    "accuracy": 0.7023,
+    "macro_f1": 0.6996,
+    "mcc": 0.554,
+    "kappa": 0.5535,
+    "roc_auc_macro": 0.8594
+  },
+  "bilstm": {
+    "accuracy": 0.698,
+    "macro_f1": 0.6943,
+    "mcc": 0.5477,
+    "kappa": 0.547,
+    "roc_auc_macro": 0.8586
+  }
+}

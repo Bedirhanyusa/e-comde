@@ -1,0 +1,72 @@
+{
+  "xlm_roberta_v2": {
+    "accuracy": 0.7664,
+    "macro_f1": 0.7643,
+    "mcc": 0.65,
+    "kappa": 0.6495,
+    "roc_auc_macro": 0.9116,
+    "per_class": {
+      "olumsuz": 0.778,
+      "notr": 0.664,
+      "olumlu": 0.8509
+    },
+    "best_val_f1": 0.7634,
+    "history": [
+      {
+        "epoch": 1,
+        "loss": 0.8351,
+        "val_acc": 0.7337,
+        "val_f1": 0.7329
+      },
+      {
+        "epoch": 2,
+        "loss": 0.6393,
+        "val_acc": 0.7543,
+        "val_f1": 0.7463
+      },
+      {
+        "epoch": 3,
+        "loss": 0.6011,
+        "val_acc": 0.7615,
+        "val_f1": 0.7551
+      },
+      {
+        "epoch": 4,
+        "loss": 0.5723,
+        "val_acc": 0.7617,
+        "val_f1": 0.7626
+      },
+      {
+        "epoch": 5,
+        "loss": 0.549,
+        "val_acc": 0.7651,
+        "val_f1": 0.7604
+      },
+      {
+        "epoch": 6,
+        "loss": 0.5344,
+        "val_acc": 0.7653,
+        "val_f1": 0.7634
+      },
+      {
+        "epoch": 7,
+        "loss": 0.5221,
+        "val_acc": 0.7635,
+        "val_f1": 0.7626
+      },
+      {
+        "epoch": 8,
+        "loss": 0.5158,
+        "val_acc": 0.7645,
+        "val_f1": 0.7629
+      }
+    ],
+    "config": {
+      "lr": 6e-06,
+      "epochs": 8,
+      "max_len": 192,
+      "label_smooth": 0.04,
+      "base_model": "xlm-roberta-base"
+    }
+  }
+}

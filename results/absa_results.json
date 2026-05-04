@@ -1,0 +1,12 @@
+{
+  "absa": {
+    "macro_f1": 0.9965,
+    "accuracy": 0.997,
+    "aspects": [
+      "kargo",
+      "urun_kalitesi",
+      "fiyat",
+      "musteri_hizmetleri"
+    ]
+  }
+}
