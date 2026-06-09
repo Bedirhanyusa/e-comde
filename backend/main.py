@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from backend.config import settings
 from backend.dependencies import get_sentiment_classifier, get_summarizer
-from backend.routers import sentiment, summarize, ingest
+from backend.routers import sentiment, summarize, ingest, shop
 
 
 @asynccontextmanager
@@ -28,6 +28,7 @@ app.add_middleware(
 app.include_router(sentiment.router)
 app.include_router(summarize.router)
 app.include_router(ingest.router)
+app.include_router(shop.router)
 
 
 @app.get("/health")

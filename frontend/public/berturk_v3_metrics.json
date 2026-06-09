@@ -1,0 +1,46 @@
+{
+  "confusion_matrix": [
+    [
+      1320,
+      284,
+      52
+    ],
+    [
+      310,
+      1121,
+      225
+    ],
+    [
+      12,
+      199,
+      1446
+    ]
+  ],
+  "classes": [
+    "olumsuz",
+    "notr",
+    "olumlu"
+  ],
+  "per_class": {
+    "olumsuz": {
+      "precision": 0.8039,
+      "recall": 0.7971,
+      "f1": 0.8005,
+      "support": 1656
+    },
+    "notr": {
+      "precision": 0.6989,
+      "recall": 0.6769,
+      "f1": 0.6877,
+      "support": 1656
+    },
+    "olumlu": {
+      "precision": 0.8392,
+      "recall": 0.8727,
+      "f1": 0.8556,
+      "support": 1657
+    }
+  },
+  "accuracy": 0.7822,
+  "macro_f1": 0.7813
+}

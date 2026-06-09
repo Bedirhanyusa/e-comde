@@ -30,7 +30,30 @@ frontend/node_modules/
 
 # Loglar ve geçici çıktılar
 *.txt
+*.log
 logs/
+
+# Build artifacts
+frontend/tsconfig.tsbuildinfo
+
+# Thesis document (binary)
+tez_ecomde.docx
+
+# Geçici yardımcı scriptler
+fix_images.py
+fix_remaining.py
+inspect_data.py
+inspect_data2.py
+list_products.py
+prepare_shop_data.py
+run_summarizer_v4_auto.py
+test_all_images.py
+test_base_summarizer.py
+test_summarizer.py
+update_images.py
+validate_all_images.py
+verify_catalog.py
+add_products.py
 
 # OS
 .DS_Store

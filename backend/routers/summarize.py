@@ -1,6 +1,10 @@
 import asyncio
 from fastapi import APIRouter, Depends
-from backend.schemas.summarize import SummarizeRequest, SummarizeResponse
+from backend.schemas.summarize import (
+    SummarizeRequest, SummarizeResponse,
+    AdvisorRequest, AdvisorResponse,
+    EmotionRequest, EmotionResponse,
+)
 from backend.dependencies import get_summarizer
 from src.models.summarizer import ReviewSummarizer
 
@@ -13,8 +17,34 @@ async def summarize_reviews(
     summarizer: ReviewSummarizer = Depends(get_summarizer),
 ):
     loop = asyncio.get_event_loop()
-    summaries = await loop.run_in_executor(
+    result = await loop.run_in_executor(
         None,
-        lambda: summarizer.summarize_by_sentiment(request.reviews, request.labels),
+        lambda: summarizer.get_full_analysis(request.reviews, request.labels),
     )
-    return SummarizeResponse(summaries=summaries)
+    return SummarizeResponse(**result)
+
+
+@router.post("/advisor", response_model=AdvisorResponse)
+async def get_advisor(
+    request: AdvisorRequest,
+    summarizer: ReviewSummarizer = Depends(get_summarizer),
+):
+    loop = asyncio.get_event_loop()
+    result = await loop.run_in_executor(
+        None,
+        lambda: summarizer.get_advisor(request.reviews, request.labels, request.score),
+    )
+    return AdvisorResponse(**result)
+
+
+@router.post("/emotions", response_model=EmotionResponse)
+async def get_emotions(
+    request: EmotionRequest,
+    summarizer: ReviewSummarizer = Depends(get_summarizer),
+):
+    loop = asyncio.get_event_loop()
+    result = await loop.run_in_executor(
+        None,
+        lambda: summarizer.get_emotions(request.reviews, request.labels),
+    )
+    return EmotionResponse(**result)

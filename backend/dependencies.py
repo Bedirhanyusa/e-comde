@@ -11,4 +11,4 @@ def get_sentiment_classifier() -> SentimentClassifier:
 
 @lru_cache(maxsize=1)
 def get_summarizer() -> ReviewSummarizer:
-    return ReviewSummarizer(settings.summarizer_model_name)
+    return ReviewSummarizer(api_key=settings.anthropic_api_key)

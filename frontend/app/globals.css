@@ -6,25 +6,67 @@
   :root {
     --bg: #F5F5F7;
     --surface: #ffffff;
+    --surface-2: #f9f9fb;
     --border: #E5E7EB;
     --text: #111827;
     --text-muted: #6B7280;
     --primary: #7C3AED;
     --primary-light: #EDE9FE;
+    --glow: rgba(124, 58, 237, 0.15);
   }
   .dark {
-    --bg: #0d0d12;
-    --surface: #18181f;
-    --border: #2d2d3a;
+    --bg: #0a0a10;
+    --surface: #13131a;
+    --surface-2: #1a1a24;
+    --border: #252535;
     --text: #F9FAFB;
     --text-muted: #9CA3AF;
     --primary: #8B5CF6;
-    --primary-light: #2d1f6e;
+    --primary-light: #1e1040;
+    --glow: rgba(139, 92, 246, 0.2);
   }
   body {
     background-color: var(--bg);
     color: var(--text);
-    font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+  *::-webkit-scrollbar { width: 6px; height: 6px; }
+  *::-webkit-scrollbar-track { background: transparent; }
+  *::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+}
+
+@layer utilities {
+  .glass {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+  .dark .glass {
+    background: rgba(19, 19, 26, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+  .glow-violet {
+    box-shadow: 0 0 30px var(--glow), 0 0 60px rgba(124, 58, 237, 0.05);
+  }
+  .text-gradient {
+    background: linear-gradient(135deg, #7C3AED 0%, #a855f7 50%, #6366f1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5;
+  }
+  .shimmer-bg {
+    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.08) 50%, transparent 100%);
+    background-size: 200% 100%;
+    animation: shimmer 2s linear infinite;
   }
 }

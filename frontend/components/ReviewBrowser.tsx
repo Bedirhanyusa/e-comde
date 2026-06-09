@@ -15,6 +15,26 @@ import { Search, Download, ChevronUp, ChevronDown, Flag } from "lucide-react";
 import { ReviewResult, Sentiment } from "@/lib/types";
 import clsx from "clsx";
 
+const TRUNCATE_LIMIT = 120;
+
+function ExpandableText({ text }: { text: string }) {
+  const [expanded, setExpanded] = useState(false);
+  if (text.length <= TRUNCATE_LIMIT) {
+    return <span className="block max-w-sm text-sm leading-relaxed">{text}</span>;
+  }
+  return (
+    <span className="block max-w-sm text-sm leading-relaxed">
+      {expanded ? text : text.slice(0, TRUNCATE_LIMIT) + "…"}
+      <button
+        onClick={() => setExpanded(!expanded)}
+        className="ml-1 text-violet-500 hover:text-violet-700 font-medium text-xs whitespace-nowrap"
+      >
+        {expanded ? "Daha az" : "Devamını oku"}
+      </button>
+    </span>
+  );
+}
+
 const BADGE: Record<Sentiment, string> = {
   olumlu: "bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300",
   olumsuz: "bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300",
@@ -48,11 +68,7 @@ export function ReviewBrowser({ results }: Props) {
     {
       accessorKey: "text",
       header: "Yorum",
-      cell: (info) => (
-        <span className="block max-w-xs truncate" title={info.getValue<string>()}>
-          {info.getValue<string>()}
-        </span>
-      ),
+      cell: (info) => <ExpandableText text={info.getValue<string>()} />,
     },
     {
       accessorKey: "label",
