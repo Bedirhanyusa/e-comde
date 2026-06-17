@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
-import { Loader2, Clock, Link2, ArrowRight, Store, FileDown, Scale, Zap, BarChart3, MessageSquare } from "lucide-react";
+import { Loader2, Clock, Store, FileDown, Scale, Zap, BarChart3, MessageSquare, Link2, ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSearchParams, useRouter } from "next/navigation";
 import { Navbar } from "@/components/Navbar";
@@ -62,30 +62,13 @@ export default function DashboardPage() {
   const [urlError, setUrlError] = useState<string | null>(null);
   const analyzedUrl = useRef<string | null>(null);
 
-  // URL param'dan gelen ürün analizi (İstünShop'tan navigate)
-  useEffect(() => {
-    const productUrl = searchParams.get("product_url");
-    if (!productUrl || analyzedUrl.current === productUrl) return;
-    analyzedUrl.current = productUrl;
-    setUrlInput(productUrl);
-    handleUrlAnalyze(productUrl);
-    // URL temizle (history'e product_url kalmasın)
-    router.replace("/", { scroll: false });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchParams]);
-
   const handleUrlAnalyze = useCallback(async (url?: string) => {
     const target = (url ?? urlInput).trim();
     if (!target) return;
     setUrlError(null);
     setIsAnalyzing(true);
-    setSentimentData(null);
-    setSummaryData(null);
-    setAdvisorData(null);
-    setEmotionData(null);
-    setShopProduct(null);
+    setSentimentData(null); setSummaryData(null); setAdvisorData(null); setEmotionData(null); setShopProduct(null);
     try {
-      // /shop/products/{id} formatını tanı (İstünShop linki)
       const shopMatch = target.match(/\/shop\/products\/(\d+)/);
       let data: ShopAnalysisResponse;
       if (shopMatch) {
@@ -97,18 +80,26 @@ export default function DashboardPage() {
       setSentimentData({ results: data.results, total: data.total, flagged_count: data.flagged_count });
       setSummaryData({ summaries: data.summaries, overall: data.overall ?? "", pros: data.pros ?? [], cons: data.cons ?? [] });
       setShopProduct(data.product);
-      // Advisor + Emotions: arka planda paralel çağır
       const sentScore = calcSentimentScore(data.results);
       const texts = data.results.map(r => r.text);
       const lbls = data.results.map(r => r.label);
       getAdvisor(texts, lbls, sentScore).then(setAdvisorData).catch(() => {});
       getEmotions(texts, lbls).then(setEmotionData).catch(() => {});
     } catch (e: unknown) {
-      setUrlError(e instanceof Error ? e.message : "Bu link analiz edilemedi. İstünShop'tan bir ürün linki kopyaladığınızdan emin olun.");
-    } finally {
-      setIsAnalyzing(false);
-    }
+      setUrlError(e instanceof Error ? e.message : "Bu link analiz edilemedi.");
+    } finally { setIsAnalyzing(false); }
   }, [urlInput]);
+
+  // URL param'dan gelen ürün analizi (İstünShop'tan navigate)
+  useEffect(() => {
+    const productUrl = searchParams.get("product_url");
+    if (!productUrl || analyzedUrl.current === productUrl) return;
+    analyzedUrl.current = productUrl;
+    setUrlInput(productUrl);
+    router.replace("/", { scroll: false });
+    handleUrlAnalyze(productUrl);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
 
   const handleResult = async (data: SentimentResponse) => {
     setSentimentData(data);
@@ -248,7 +239,7 @@ export default function DashboardPage() {
                   value={urlInput}
                   onChange={(e) => setUrlInput(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && handleUrlAnalyze()}
-                  placeholder="İstünShop veya Trendyol ürün linkini yapıştırın..."
+                  placeholder="İstünShop ürün linkini yapıştırın..."
                   className="flex-1 bg-transparent text-sm text-[var(--text)] placeholder:text-[var(--text-muted)] outline-none py-2 px-1"
                 />
                 <motion.button

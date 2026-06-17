@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import {
   Cpu, Shirt, BookOpen, Sparkles, Heart,
-  Star, Store, TrendingUp, ShoppingBag, Copy, Check, Zap, Tag,
+  Star, Store, ShoppingBag, Zap, Scale, ArrowLeft,
 } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { getShopProducts } from "@/lib/api";
@@ -64,18 +65,21 @@ function RatingBadge({ rating }: { rating: number }) {
   );
 }
 
-function ProductCard({ product, category }: { product: ShopProduct; category: ShopCategory | undefined }) {
-  const [copied, setCopied] = useState(false);
+function ProductCard({
+  product, category, compareSlot, onCompareSelect,
+}: {
+  product: ShopProduct;
+  category: ShopCategory | undefined;
+  compareSlot?: "A" | "B" | null;
+  onCompareSelect?: (product: ShopProduct) => void;
+}) {
+  const router = useRouter();
   const [imgError, setImgError] = useState(false);
   const Icon = category ? (ICONS[category.icon] ?? ShoppingBag) : ShoppingBag;
   const color = category?.color ?? "#8B5CF6";
-  const productLink = `${window.location.origin}/shop/products/${product.id}`;
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(productLink).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    });
+  const handleAnalyze = () => {
+    router.push(`/?product_url=/shop/products/${product.id}`);
   };
 
   return (
@@ -160,27 +164,36 @@ function ProductCard({ product, category }: { product: ShopProduct; category: Sh
         )}
 
         {/* CTA */}
-        <div className="mt-auto pt-2">
+        <div className="mt-auto pt-2 flex flex-col gap-2">
+          {compareSlot ? (
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.97 }}
+              onClick={() => onCompareSelect?.(product)}
+              className="flex items-center justify-center gap-2 w-full py-2.5 rounded-2xl text-sm font-bold text-white transition-all shadow-md"
+              style={{ background: `linear-gradient(135deg, #6366F1, #7C3AED)` }}
+            >
+              <Scale className="w-3.5 h-3.5" />
+              Ürün {compareSlot} Olarak Seç
+            </motion.button>
+          ) : (
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.97 }}
-            onClick={handleCopy}
+            onClick={handleAnalyze}
             className={`flex items-center justify-center gap-2 w-full py-2.5 rounded-2xl text-sm font-bold transition-all ${
-              copied
+              false
                 ? "bg-emerald-500 text-white shadow-lg shadow-emerald-500/25"
                 : "text-white shadow-md hover:shadow-lg"
             }`}
-            style={copied ? {} : {
+            style={{
               background: `linear-gradient(135deg, ${color}, ${color}cc)`,
               boxShadow: `0 4px 15px ${color}35`,
             }}
           >
-            {copied ? (
-              <><Check className="w-4 h-4" />Kopyalandı!</>
-            ) : (
-              <><Zap className="w-3.5 h-3.5" />Analiz İçin Kopyala</>
-            )}
+            <Zap className="w-3.5 h-3.5" />Analiz Et
           </motion.button>
+          )}
         </div>
       </div>
     </motion.div>
@@ -188,6 +201,10 @@ function ProductCard({ product, category }: { product: ShopProduct; category: Sh
 }
 
 export default function ShopPage() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const compareSlot = (searchParams.get("compareSlot") as "A" | "B" | null) ?? null;
+
   const [categories, setCategories] = useState<ShopCategory[]>([]);
   const [products, setProducts] = useState<ShopProduct[]>([]);
   const [selectedCat, setSelectedCat] = useState<string>("all");
@@ -197,16 +214,15 @@ export default function ShopPage() {
   useEffect(() => {
     setLoading(true);
     getShopProducts()
-      .then((d) => {
-        setCategories(d.categories);
-        setProducts(d.products);
-        setLoading(false);
-      })
-      .catch(() => {
-        setError("Ürünler yüklenemedi. Backend çalışıyor mu?");
-        setLoading(false);
-      });
+      .then((d) => { setCategories(d.categories); setProducts(d.products); setLoading(false); })
+      .catch(() => { setError("Ürünler yüklenemedi. Backend çalışıyor mu?"); setLoading(false); });
   }, []);
+
+  const handleCompareSelect = (product: ShopProduct) => {
+    const url = `/shop/products/${product.id}`;
+    if (compareSlot === "A") router.push(`/compare?urlA=${encodeURIComponent(url)}`);
+    else if (compareSlot === "B") router.push(`/compare?urlB=${encodeURIComponent(url)}`);
+  };
 
   const filtered = selectedCat === "all" ? products : products.filter((p) => p.category_id === selectedCat);
   const catMap = Object.fromEntries(categories.map((c) => [c.id, c]));
@@ -216,6 +232,28 @@ export default function ShopPage() {
       <Navbar />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 py-10">
+
+        {/* Compare Mode Banner */}
+        {compareSlot && (
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="flex items-center gap-3 mb-6 px-5 py-3.5 rounded-2xl bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-200 dark:border-indigo-800"
+          >
+            <Scale className="w-5 h-5 text-indigo-600 dark:text-indigo-400 shrink-0" />
+            <div className="flex-1">
+              <p className="text-sm font-bold text-indigo-700 dark:text-indigo-300">
+                Karşılaştırma Modu — Ürün {compareSlot}
+              </p>
+              <p className="text-xs text-indigo-600/70 dark:text-indigo-400/70">
+                Karşılaştırmak istediğin ürünü seç
+              </p>
+            </div>
+            <a href="/compare" className="flex items-center gap-1.5 text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline">
+              <ArrowLeft className="w-3.5 h-3.5" />Geri Dön
+            </a>
+          </motion.div>
+        )}
 
         {/* Hero */}
         <motion.div
@@ -245,9 +283,7 @@ export default function ShopPage() {
                 Ürünü seç, AI ile analiz et
               </h1>
               <p className="text-[var(--text-muted)] mt-1 max-w-xl text-sm">
-                Linki kopyala →{" "}
-                <a href="/" className="text-violet-500 hover:underline font-semibold">Ana sayfaya</a>
-                {" "}yapıştır → Yapay zeka saniyeler içinde tüm yorumları analiz eder.
+                Bir ürüne tıkla → <span className="text-violet-500 font-semibold">Analiz Et</span> → Yapay zeka saniyeler içinde tüm yorumları analiz eder.
               </p>
             </div>
             <motion.div
@@ -270,9 +306,9 @@ export default function ShopPage() {
           {/* How it works */}
           <div className="flex items-center gap-2 px-5 py-3.5 bg-gradient-to-r from-violet-50 to-indigo-50 dark:from-violet-900/10 dark:to-indigo-900/10 border border-violet-200/60 dark:border-violet-800/40 rounded-2xl">
             {[
-              { icon: Tag, num: "1", text: "Aşağıdan ürün seç" },
-              { icon: Copy, num: "2", text: '"Analiz İçin Kopyala" butonuna bas' },
-              { icon: Zap, num: "3", text: "Ana sayfaya yapıştır ve analiz et" },
+              { icon: Store, num: "1", text: "Aşağıdan ürün seç" },
+              { icon: Zap, num: "2", text: '"Analiz Et" butonuna bas' },
+              { icon: Scale, num: "3", text: "Yapay zeka sonuçları gösterir" },
             ].map(({ icon: Icon, num, text }, i) => (
               <div key={i} className="flex items-center gap-2">
                 <div className="flex items-center gap-1.5">
@@ -302,7 +338,7 @@ export default function ShopPage() {
                 : "bg-[var(--surface)] border-[var(--border)] text-[var(--text-muted)] hover:border-violet-300 hover:text-[var(--text)]"
             }`}
           >
-            <TrendingUp className="w-3.5 h-3.5" />
+            <Store className="w-3.5 h-3.5" />
             Tüm Ürünler
             <span className={`text-[10px] px-1.5 py-0.5 rounded-md font-bold ${selectedCat === "all" ? "bg-white/20" : "bg-[var(--bg)]"}`}>
               {products.length}
@@ -383,7 +419,7 @@ export default function ShopPage() {
               className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5"
             >
               {filtered.map((product) => (
-                <ProductCard key={product.id} product={product} category={catMap[product.category_id]} />
+                <ProductCard key={product.id} product={product} category={catMap[product.category_id]} compareSlot={compareSlot} onCompareSelect={handleCompareSelect} />
               ))}
             </motion.div>
           </>

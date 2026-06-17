@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 import {
   Link2, Loader2, CheckCircle2, XCircle, AlertTriangle, Scale,
-  TrendingUp, ShieldAlert, Star, BarChart3, Users, Zap,
+  TrendingUp, ShieldAlert, Star, BarChart3, Users, Zap, Store,
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { Navbar } from "@/components/Navbar";
@@ -28,6 +29,7 @@ interface ProductAnalysis {
   score: number;
   url: string;
   name?: string;
+  categoryId?: string;
   categoryScores: Array<{ name: string; score: number }>;
   avgConfidence: number;
   fakeReviewPct: number;
@@ -502,12 +504,36 @@ function WinnerBanner({ a, b }: { a: ProductAnalysis; b: ProductAnalysis }) {
 // ── Ana sayfa ────────────────────────────────────────────────────────────────
 
 export default function ComparePage() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
   const [urlA, setUrlA] = useState("");
   const [urlB, setUrlB] = useState("");
   const [errorA, setErrorA] = useState<string | null>(null);
   const [errorB, setErrorB] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [results, setResults] = useState<[ProductAnalysis, ProductAnalysis] | null>(null);
+
+  // sessionStorage'da seçimleri koru (shop'a gidip gelirken kaybolmasın)
+  useEffect(() => {
+    const saved = sessionStorage.getItem("compare_urls");
+    const parsed = saved ? JSON.parse(saved) : {};
+    const pA = searchParams.get("urlA");
+    const pB = searchParams.get("urlB");
+    const finalA = pA ? decodeURIComponent(pA) : (parsed.urlA ?? "");
+    const finalB = pB ? decodeURIComponent(pB) : (parsed.urlB ?? "");
+    if (finalA) setUrlA(finalA);
+    if (finalB) setUrlB(finalB);
+    sessionStorage.setItem("compare_urls", JSON.stringify({ urlA: finalA, urlB: finalB }));
+    if (pA || pB) router.replace("/compare", { scroll: false });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // urlA/urlB değişince sessionStorage güncelle
+  useEffect(() => {
+    if (urlA || urlB) {
+      sessionStorage.setItem("compare_urls", JSON.stringify({ urlA, urlB }));
+    }
+  }, [urlA, urlB]);
 
   const analyzeProduct = useCallback(async (url: string): Promise<ProductAnalysis> => {
     const shopMatch = url.match(/\/shop\/products\/(\d+)/);
@@ -543,6 +569,7 @@ export default function ComparePage() {
       score,
       url,
       name: data.product?.name,
+      categoryId: data.product?.category_id,
       categoryScores: calcCategoryScores(data.results),
       avgConfidence: avgConf(data.results),
       fakeReviewPct: fakePct,
@@ -596,9 +623,9 @@ export default function ComparePage() {
         {/* URL Girişleri */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
           {[
-            { label: "Ürün A", url: urlA, setUrl: setUrlA, error: errorA, color: "violet" },
-            { label: "Ürün B", url: urlB, setUrl: setUrlB, error: errorB, color: "indigo" },
-          ].map(({ label, url, setUrl, error, color }, idx) => (
+            { label: "Ürün A", url: urlA, setUrl: setUrlA, error: errorA, color: "violet", slot: "A" as const },
+            { label: "Ürün B", url: urlB, setUrl: setUrlB, error: errorB, color: "indigo", slot: "B" as const },
+          ].map(({ label, url, setUrl, error, color, slot }, idx) => (
             <div key={idx}>
               <label className={`text-xs font-bold text-${color}-600 uppercase tracking-wide mb-2 block`}>{label}</label>
               <div className="flex gap-2 bg-white dark:bg-[var(--surface)] border border-[var(--border)] rounded-2xl p-2 focus-within:border-violet-400 transition-colors">
@@ -610,11 +637,18 @@ export default function ComparePage() {
                   value={url}
                   onChange={e => setUrl(e.target.value)}
                   onKeyDown={e => e.key === "Enter" && handleCompare()}
-                  placeholder="İstünShop veya Trendyol ürün linki..."
+                  placeholder="İstünShop ürün linki..."
                   className="flex-1 bg-transparent text-sm text-[var(--text)] placeholder:text-[var(--text-muted)] outline-none py-2 px-1"
                 />
               </div>
               {error && <p className="mt-1 text-xs text-red-500">{error}</p>}
+              <a
+                href={`/shop?compareSlot=${slot}`}
+                className="mt-2 flex items-center gap-1.5 text-xs font-semibold text-violet-600 dark:text-violet-400 hover:underline"
+              >
+                <Store className="w-3.5 h-3.5" />
+                Mağazadan Seç
+              </a>
             </div>
           ))}
         </div>
@@ -656,6 +690,20 @@ export default function ComparePage() {
             className="space-y-6"
           >
             <WinnerBanner a={results[0]} b={results[1]} />
+
+            {/* Farklı kategori uyarısı */}
+            {results[0].categoryId && results[1].categoryId && results[0].categoryId !== results[1].categoryId && (
+              <div className="flex items-start gap-3 px-5 py-4 rounded-2xl bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800">
+                <AlertTriangle className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-sm font-bold text-amber-700 dark:text-amber-300">Farklı Kategorilerden Ürünler</p>
+                  <p className="text-xs text-amber-600/80 dark:text-amber-400/80 mt-0.5">
+                    Seçilen ürünler farklı kategorilere ait — kategori bazlı metrikler ve AI tavsiyeleri güvenilir olmayabilir. Daha doğru karşılaştırma için aynı kategoriden ürün seçin.
+                  </p>
+                </div>
+              </div>
+            )}
+
             <HeadToHead a={results[0]} b={results[1]} />
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
